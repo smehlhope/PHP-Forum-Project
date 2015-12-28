@@ -38,10 +38,10 @@
 |
 */
 
-$route['default_controller'] = "login";
-$route ['login/register'] = "login/register";
-$route['login/welcome'] = "login/profile";
-$route['login/welcome/(:any)'] = "login/profile/$1";
+$route['default_controller'] = "users";
+$route ['users/register'] = "users/register";
+$route['users/welcome'] = "users/profile";
+$route['users/welcome/(:any)'] = "users/profile/$1";
 $route['404_override'] = '';
 
 

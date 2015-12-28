@@ -9,10 +9,9 @@
 	<div id="page-container">
 
 	<h1>Register!</h1>
-	<form action="/login/process_registration" method="post">
-		<p>First Name: <input type="text" name="first_name"></p>
-		<p>Last Name: <input type="text" name="last_name"></p>
+	<form action="/users/register" method="post">
 		<p>Email: <input type="text" name="email"></p>
+		<p>Username: <input type="text" name="username"></p>
 		<p>Password: <input type="password" name="password"></p>
 		<p>Confirm Password: <input type="password" name="confirm_password"></p>
 		<input type="submit" name="submit" value="submit">
@@ -24,8 +23,8 @@
 		} ?>
 
 	<h1>Login!</h1>
-		<form action="/login/process_login" method="post">
-			<p>Email: <input type="text" name="email"></p>
+		<form action="/users/login" method="post">
+			<p>Username: <input type="text" name="username"></p>
 			<p>Password: <input type="password" name="password"></p>
 			<input type="submit" name="submit" value="submit">
 		</form>
