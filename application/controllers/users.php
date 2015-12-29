@@ -34,7 +34,7 @@ class Users extends CI_Controller {
 
 			if ($get_user) {
 				$this->session->set_userdata("user_session", $get_user);
-				redirect(base_url("users/profile"));
+				redirect(base_url("categories/main"));
 			} else {
 				$this->session->set_flashdata("login_errors", "Invalid email and/or password");
 				redirect(base_url());
@@ -61,7 +61,7 @@ class Users extends CI_Controller {
 			
 			if($insert_user) {				
 				$this->session->set_userdata("user_session", $user_input);
-				redirect(base_url("users/profile"));
+				redirect(base_url("categories/main"));
 			} else {
 				$this->session->set_flashdata("registration_errors", "Sorry but your info were not registered please try again.");
 				redirect(base_url());

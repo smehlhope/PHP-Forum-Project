@@ -39,9 +39,10 @@
 */
 
 $route['default_controller'] = "users";
-$route ['users/register'] = "users/register";
+$route['users/register'] = "users/register";
 $route['users/welcome'] = "users/profile";
-$route['users/welcome/(:any)'] = "users/profile/$1";
+$route['categories/main'] = "categories/main";
+$route['categories/new'] = "categories/new_category";
 $route['404_override'] = '';
 
 
