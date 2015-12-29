@@ -16,16 +16,16 @@ module.exports = function(grunt) {
           ]
           .concat(
             glob.sync('./assets/js/pages/**/*.js').map(function(file) {
-              var expose = file.replace('.js', '').replace('./', '')
+              var expose = file.replace('.js', '').replace('./assets/js/', '')
               return file + ":" + expose;
             })
           ),
-        // ignore: Asset.BROWSERIFYOPTIONS.ignore
-        // transform: Asset.BROWSERIFYOPTIONS.transform
-        // browserifyOptions:
-        //   extensions: Asset.BROWSERIFY_OPTIONS.extensions
-        debug: true
+        browserifyOptions: {
+          debug: true
+        }
       }
+    },
+    watchify: {
     }
   });
 
