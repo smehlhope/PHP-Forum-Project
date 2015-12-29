@@ -17,10 +17,9 @@ class User extends CI_Model {
 			// 						 AND password = '{$user_info[password]}'")->row_array();
 		}
 		
-		public function insert_user($user_info) {
-			$insert_query = "INSERT INTO users (username, password, email, created_at)
-								VALUES (?, ?, ?, NOW())";
-			$values = (array($user_info['username'], $user_info['password'], $user_info['email']));
+		public function insert_user($post) {
+			$insert_query = "INSERT INTO users (username, password, email, created_at) VALUES (?, ?, ?, NOW())";
+			$values = (array($post['username'], $post['password'], $post['email']));
 			$this->db->query($insert_query, $values);
 			return $this->db->insert_id();
 		}

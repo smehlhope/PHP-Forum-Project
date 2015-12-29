@@ -34,7 +34,7 @@ class Users extends CI_Controller {
 
 			if ($get_user) {
 				$this->session->set_userdata("user_session", $get_user);
-				redirect(base_url("categories/main"));
+				redirect(base_url("topics/main"));
 			} else {
 				$this->session->set_flashdata("login_errors", "Invalid email and/or password");
 				redirect(base_url());
@@ -54,14 +54,14 @@ class Users extends CI_Controller {
 			redirect(base_url());
 		} else {
 			$this->load->model("User");
-			$user_input = $this->input->post();	
+			$post = $this->input->post();	
 			//var_dump($this->input-post());
 			//die();		
-			$insert_user = $this->User->insert_user($user_input);
+			$insert_user = $this->User->insert_user($post);
 			
 			if($insert_user) {				
 				$this->session->set_userdata("user_session", $user_input);
-				redirect(base_url("categories/main"));
+				redirect("topics/main");
 			} else {
 				$this->session->set_flashdata("registration_errors", "Sorry but your info were not registered please try again.");
 				redirect(base_url());
@@ -70,14 +70,12 @@ class Users extends CI_Controller {
 	}
 	
 	public function profile() {
-		$this->load->view("user_profile", $this->view_data);
+		$this->load->view("nav", $this->view_data);
 	}
 	
 	public function logout() {
-		
 		$this->session->sess_destroy();
 		redirect(base_url());
 	}
-	
 
 }
