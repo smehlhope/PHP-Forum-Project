@@ -1,4 +1,3 @@
-Backbone = require('backbone');
-Page     = require('./page');
-
-var page = new Page({});
+$          = require('jquery');
+Backbone   = require('backbone');
+Backbone.$ = $;

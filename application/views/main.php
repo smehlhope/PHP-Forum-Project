@@ -48,4 +48,8 @@ array (size=6)
 -->
 </div>
 
+<<<<<<< HEAD
 <?php $this->load->view('/partials/footer'); ?>
+=======
+<!-- http://api.jqueryui.com/tabs/#entry-examples -->
+>>>>>>> origin/master
