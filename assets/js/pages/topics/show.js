@@ -1,8 +1,8 @@
 BaseView = require ('../../views/base_view');
 
-module.exports = CategoryNewPage = BaseView.extend({
+module.exports = TopicShowPage = BaseView.extend({
   initialize: function(options) {
-    console.log('Loading the category new page');
+    console.log('Loading the Topic show page');
     this.constructor.__super__.initialize.apply(this, arguments);
     return this;
   },
