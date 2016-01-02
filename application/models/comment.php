@@ -31,4 +31,11 @@ public function update_comment($post, $comment_id) {
 	return $this->db->query($query,$values);
 }
 
+public function destroy_comment($comment_id) {
+	$query = "DELETE FROM comments WHERE id = ?";
+	$values = $comment_id;
+	return $this->db->query($query, $values);	
+}
+
+
 }		

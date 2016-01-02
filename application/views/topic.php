@@ -44,6 +44,8 @@
 		<input type="submit" value="Add Comment">
 	</form>
 </div>
+<?= $this->session->flashdata("comment-success"); ?>
+<?=  $this->session->flashdata("comment-error");  ?>
 <div id="comment-container">
 	<?php foreach ($comments as $comment) { ?>
 	<div class="one-comment-container">
@@ -55,6 +57,11 @@
 			<textarea name="content" placeholder="Reply..."></textarea>
 			<input type="hidden" name="topic_id" value="<?= $topic['id'] ?>">
 			<input type="submit" value="Edit Comment">
+		</form>
+		<p> OR </p>
+		<form method="post" action="/comments/delete/<?= $comment['id']?>">
+			<input type="hidden" name="topic_id" value="<?= $topic['id'] ?>">
+			<input type="submit" value="Delete Comment">
 		</form>
 		<?php } ?>
 	</div>

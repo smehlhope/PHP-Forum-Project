@@ -37,8 +37,13 @@ public function update($topic_id) {
 }
 
 public function destroy($topic_id) {
-	$this->Topic->destroy_topic($topic_id);
-	redirect('topics/main');
+
+	if($this->Topic->destroy_topic($topic_id)){
+		$this->session->set_flashdata('topic-delete-success', 'Topic successfully deleted');
+		redirect("topics/main");
+	} else {
+		$this->session->set_flashdata('error', 'Something went wrong! Please try again later.');
+	}	
 }
 
 }

@@ -4,8 +4,7 @@
 <div id="forum-container">
 <h1>Wandering Reader Discussion Board</h1>
 
-<?= $this->session->flashdata("success"); ?>
-<?=  $this->session->flashdata("error");  ?>
+<?= $this->session->flashdata("topic-delete-success"); ?>
 		
 <table>
 	<thead>

@@ -48,6 +48,7 @@ $route['topics/update/(:any)'] = "topics/update/$1";
 $route['topics/delete/(:any)'] = "topics/destroy/$1";
 $route['topics/comments/(:any)'] = "comments/add_comment";
 $route['comments/update/(:any)'] = "comments/update/$1";
+$route['comments/delete/(:any)'] = "comments/destroy/$1";
 $route['topics/(:any)'] = "topics/show/$1";
 $route['404_override'] = '';
 

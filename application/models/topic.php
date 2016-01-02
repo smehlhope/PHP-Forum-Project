@@ -31,7 +31,7 @@ public function retrieve_all() {
 }
 
 public function get_one_topic($id) {
-	$query = "SELECT topics.id, topics.subject, topics.category, topics.description, topics.created_at, topics.updated_at, users.id AS user_id, users.username FROM topics JOIN users ON topics.user_id = users.id WHERE topics.id = ? ORDER BY topics.created_at DESC";
+	$query = "SELECT topics.id, topics.subject, topics.category, topics.description, topics.created_at, topics.updated_at, users.id AS user_id, users.username FROM topics JOIN users ON topics.user_id = users.id WHERE topics.id = ? ORDER BY topics.created_at";
 	$values = $id;
 	return $this->db->query($query, $values)->row_array();
 }
@@ -45,14 +45,7 @@ public function update_topic($post, $topic_id) {
 public function destroy_topic($topic_id) {
 	$query = "DELETE FROM topics WHERE id = ?";
 	$values = $topic_id;
-	$this->db->query($query, $values);
-
-	if($this->db->query($query, $values)){
-		$this->session->set_flashdata('success', 'Topic successfully deleted');
-		redirect("topics/main");
-	} else {
-		$this->session->set_flashdata('error', 'Something went wrong! Please try again later.');
-	}	
+	return $this->db->query($query, $values);
 }
 
 }		
