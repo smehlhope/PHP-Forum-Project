@@ -5,7 +5,7 @@ class Topics extends CI_Controller {
 	
 	function __construct() {
 		parent::__construct();
-		// $this->load->model('Topic');
+		$this->load->model('Comment');
 	}
 public function index() {
 	$this->load->view('main', $data);
@@ -27,7 +27,18 @@ public function add_topic() {
 
 public function show($id) {
 	$data['topic'] = $this->Topic->get_one_topic($id);
+	$data['comments'] = $this->Comment->get_comments($id);
 	$this->load->view('topic', $data);
+}
+
+public function update($topic_id) {
+	$this->Topic->update_topic($this->input->post(), $topic_id);
+	redirect('/topics/'.$topic_id);
+}
+
+public function destroy($topic_id) {
+	$this->Topic->destroy_topic($topic_id);
+	redirect('topics/main');
 }
 
 }

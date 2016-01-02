@@ -17,23 +17,42 @@ public function add_topic($post) {
 	if($this->form_validation->run() === FALSE) {
 			$this->session->set_flashdata("errors", validation_errors());
 		} else {
-	     	$query = "INSERT INTO topics (subject, category, description, created_at, updated_at, user_id) VALUES (?,?,?,?,?,?)";
+	     	$query = "INSERT INTO topics (subject, category, description, created_at, updated_at, user_id) VALUES (?,?,?,NOW(),NOW(),?)";
 			//below fills in the ?,? in the query - here we tell CI to look ofr the values
 			//make certain that the values and selectors match up with database order
-			$values = array($post["subject"], $post["category"], $post["description"], date('F j Y g:i a'), date('F j Y g:i a'), intval($this->session->userdata['user_session']['id']));
+			$values = array($post["subject"], $post["category"], $post["description"], intval($this->session->userdata['user_session']['id']));
 			//using the query bindings automatically escapes the string (the ??s)
 			return $this->db->query($query, $values);
 		}
 	}
 
 public function retrieve_all() {
-	return $this->db->query("SELECT topics.id, topics.subject, topics.category, topics.description, topics.created_at, topics.updated_at, users.username FROM topics JOIN users ON topics.user_id = users.id ORDER BY topics.updated_at DESC")->result_array();
+	return $this->db->query("SELECT t.id, t.subject, t.category, t.description, t.created_at, t.updated_at, u.username, count(c.topic_id) comment_count FROM topics t left join comments c ON t.id = c.topic_id left join users u on u.id = t.user_id group by t.id")->result_array();
 }
 
 public function get_one_topic($id) {
-	$query = "SELECT topics.id, topics.subject, topics.category, topics.description, topics.created_at, topics.updated_at, users.username FROM topics JOIN users ON topics.user_id = users.id WHERE topics.id = ? ORDER BY topics.created_at DESC";
+	$query = "SELECT topics.id, topics.subject, topics.category, topics.description, topics.created_at, topics.updated_at, users.id AS user_id, users.username FROM topics JOIN users ON topics.user_id = users.id WHERE topics.id = ? ORDER BY topics.created_at DESC";
 	$values = $id;
 	return $this->db->query($query, $values)->row_array();
+}
+
+public function update_topic($post, $topic_id) {
+	$query = "UPDATE topics SET subject=?, category=?, description=?, updated_at=NOW() WHERE id=?";
+	$values = array($post['subject'], $post['category'], $post['description'], $topic_id);
+	return $this->db->query($query,$values);
+}
+
+public function destroy_topic($topic_id) {
+	$query = "DELETE FROM topics WHERE id = ?";
+	$values = $topic_id;
+	$this->db->query($query, $values);
+
+	if($this->db->query($query, $values)){
+		$this->session->set_flashdata('success', 'Topic successfully deleted');
+		redirect("topics/main");
+	} else {
+		$this->session->set_flashdata('error', 'Something went wrong! Please try again later.');
+	}	
 }
 
 }		

@@ -37,15 +37,18 @@
 | in the URL cannot be matched to a valid route.
 |
 */
-//URL ------ controller/method 
+//search bar ------ controller/method 
 $route['default_controller'] = "users";
 $route['users/register'] = "users/register";
 $route['users/welcome'] = "users/profile";
 $route['topics/main'] = "topics/main";
 $route['topics/new'] = "topics/new_topic";
 $route['topics/add_topic'] = "topics/add_topic";
+$route['topics/update/(:any)'] = "topics/update/$1";
+$route['topics/delete/(:any)'] = "topics/destroy/$1";
+$route['topics/comments/(:any)'] = "comments/add_comment";
+$route['comments/update/(:any)'] = "comments/update/$1";
 $route['topics/(:any)'] = "topics/show/$1";
-$route['topics/(:any)/comments'] = "comments/add_comment";
 $route['404_override'] = '';
 
 

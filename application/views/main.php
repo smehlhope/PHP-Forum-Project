@@ -2,7 +2,11 @@
 <?php $this->load->view('partials/nav'); ?>
 
 <div id="forum-container">
-<h1>Wandering Reader Discussion Board</h1>	
+<h1>Wandering Reader Discussion Board</h1>
+
+<?= $this->session->flashdata("success"); ?>
+<?=  $this->session->flashdata("error");  ?>
+		
 <table>
 	<thead>
 		<tr>
@@ -20,7 +24,7 @@
 			<td><h4><a href="/topics/<?= $topic['id'] ?>"><?= $topic['subject'] ?></a></h4></td>
 			<td><h4><?= $topic['category'] ?></h4></td>
 			<td><p><?= $topic['description'] ?></p></td>
-			<td><p></p></td>
+			<td><p><?= $topic['comment_count'] ?></p></td>
 			<td><p><?= $topic['username'] ?></p></td>
 			<td><p><?= $topic['updated_at'] ?></p></td>
 		</tr>
@@ -48,8 +52,6 @@ array (size=6)
 -->
 </div>
 
-<<<<<<< HEAD
+
 <?php $this->load->view('/partials/footer'); ?>
-=======
-<!-- http://api.jqueryui.com/tabs/#entry-examples -->
->>>>>>> origin/master
+
