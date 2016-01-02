@@ -4,6 +4,15 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    watch: {
+      scripts: {
+        files: ['./assets/js/**/*.js', '!./assets/js/application.js'],
+        tasks: ['browserify'],
+        options: {
+          debounceDelay: 250,
+        }
+      }
+    },
     browserify: {
       build: {
         src: [],
@@ -24,12 +33,11 @@ module.exports = function(grunt) {
           debug: true
         }
       }
-    },
-    watchify: {
     }
   });
 
   grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   // Default task(s).
   grunt.registerTask('default', ['browserify']);
 };

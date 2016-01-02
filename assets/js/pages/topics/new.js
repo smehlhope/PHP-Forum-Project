@@ -1,4 +1,4 @@
-BaseView = require ('../../views/base_view');
+BaseView = require('../../views/base_view');
 
 module.exports = TopicNewPage = BaseView.extend({
   initialize: function(options) {
