@@ -37,19 +37,19 @@
 | in the URL cannot be matched to a valid route.
 |
 */
-//search bar ------ controller/method 
+//search bar ------ controller/method
 $route['default_controller'] = "users";
 $route['users/register'] = "users/register";
 $route['users/welcome'] = "users/profile";
-$route['topics/main'] = "topics/main";
+// $route['topics'] = "topics/index";
 $route['topics/new'] = "topics/new_topic";
 $route['topics/add_topic'] = "topics/add_topic";
-$route['topics/update/(:any)'] = "topics/update/$1";
-$route['topics/delete/(:any)'] = "topics/destroy/$1";
-$route['topics/comments/(:any)'] = "comments/add_comment";
-$route['comments/update/(:any)'] = "comments/update/$1";
-$route['comments/delete/(:any)'] = "comments/destroy/$1";
-$route['topics/(:any)'] = "topics/show/$1";
+$route['topics/update/(:num)'] = "topics/update/$1";
+$route['topics/delete/(:num)'] = "topics/destroy/$1";
+$route['topics/comments/(:num)'] = "comments/add_comment";
+$route['comments/update/(:num)'] = "comments/update/$1";
+$route['comments/delete/(:num)'] = "comments/destroy/$1";
+$route['topics/(:num)'] = "topics/show/$1";
 $route['404_override'] = '';
 
 

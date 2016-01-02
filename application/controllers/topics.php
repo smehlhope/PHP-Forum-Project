@@ -1,19 +1,15 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Topics extends CI_Controller {
-	
-	
+
+
 	function __construct() {
 		parent::__construct();
 		$this->load->model('Comment');
 	}
 public function index() {
-	$this->load->view('main', $data);
-}
-
-public function main() {
 	$data['topics'] = $this->Topic->retrieve_all();
-	$this->load->view("main", $data);
+	$this->load->view('main', $data);
 }
 
 public function new_topic() {
@@ -22,7 +18,7 @@ public function new_topic() {
 
 public function add_topic() {
 	$this->Topic->add_topic($this->input->post());
-	redirect('topics/main');
+	redirect('topics');
 }
 
 public function show($id) {
@@ -40,10 +36,10 @@ public function destroy($topic_id) {
 
 	if($this->Topic->destroy_topic($topic_id)){
 		$this->session->set_flashdata('topic-delete-success', 'Topic successfully deleted');
-		redirect("topics/main");
+		redirect("topics");
 	} else {
 		$this->session->set_flashdata('error', 'Something went wrong! Please try again later.');
-	}	
+	}
 }
 
 }

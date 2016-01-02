@@ -1,5 +1,5 @@
 <nav>
-	<a href="/topics/main">Home</a> | 
+	<a href="/topics">Home</a> | 
 	<a href="/topics/new">Create a New Topic</a> |
 	<a href="/users/logout">Logout</a>
 </nav>
