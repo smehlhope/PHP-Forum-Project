@@ -2,7 +2,6 @@
 <?php $this->load->view('partials/nav'); ?>
 
 <div id="forum-container">
-<h1>Wandering Reader Discussion Board</h1>
 
 <?= $this->session->flashdata("topic-delete-success"); ?>
 		

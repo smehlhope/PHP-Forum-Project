@@ -7,7 +7,6 @@ class Topic extends CI_Model {
 		
 		function __construct() {
 			parent::__construct();
-				$this->output->enable_profiler();
 		}
 
 public function add_topic($post) {

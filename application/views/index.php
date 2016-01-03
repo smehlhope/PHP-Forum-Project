@@ -6,7 +6,13 @@
 	<meta name="description" content="Login and Registration">
 </head>
 <body>
-	<div id="page-container">
+	<div id="page-container" class="container">
+		<div class="jumbotron">
+		<h3>Navbar example</h3>
+		<p>Welcome to the Wandering Reader, where you can discuss all things book related with like minded people!</p>
+		<p>
+		<p>Login or Register to participate!</p>
+	</div>
 
 	<h1>Register!</h1>
 	<form action="/users/register" method="post">
