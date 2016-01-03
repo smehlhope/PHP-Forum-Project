@@ -24,7 +24,7 @@
         		</li>
 				<li><a href="/topics/new">Create New Topic</a></li>
 			</ul>
-			
+
 			<ul class="nav navbar-right navbar-nav">
 				<li><p class="navbar-text">Signed in as <strong><?= $this->session->userdata['user_session']['username']; ?></strong></p></li>
 				<li><a href="/logout">Logout</a></li>
