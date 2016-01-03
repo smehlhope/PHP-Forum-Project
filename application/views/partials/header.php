@@ -13,4 +13,3 @@
 	<script type="text/javascript" src="/assets/js/application.js"></script>
 	<?php include($_SERVER['DOCUMENT_ROOT'] . '/application/helpers/include_page_script.php') ?>
 </head>
-<body>

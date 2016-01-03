@@ -1,3 +1,4 @@
+<body>
 <div class="container">
 	<!-- Static navbar -->
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -18,12 +19,7 @@
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
 		            <li><?php $this->load->view('partials/login'); ?></li>
-		            <li><a href="#">Another action</a></li>
-		            <li><a href="#">Something else here</a></li>
-		            <li role="separator" class="divider"></li>
-		            <li><a href="#">Separated link</a></li>
-		            <li role="separator" class="divider"></li>
-		            <li><a href="#">One more separated link</a></li>
+		            <li><?php $this->load->view('partials/register'); ?></li>
 		          </ul>
         		</li>
 				<li><a href="/topics/new">Create New Topic</a></li>
