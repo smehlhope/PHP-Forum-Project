@@ -1,71 +1,103 @@
 <?php $this->load->view('partials/header'); ?>
 <?php $this->load->view('partials/nav'); ?>
 
-<div id="topic-container">
-	<div id="topic-header">
-		<h1><?= $topic['subject'] ?></h1>
-		<p><?= $topic['category'] ?></p>
+<div class="container">
+	<div class="jumbotron">
+		<div class="container">
+			<h2><?= $topic['subject'] ?></h2>	
+			<h2><small><?= $topic['category'] ?></small></h2>
+			<p class="lead"><?= $topic['description'] ?></p>
+			<p>- <em><?= $topic['username'] ?></em></p>
+			<p>Posted on: <?= $topic['created_at'] ?></p>
+		</div>	
 	</div>
-	<div id="topic-description-container">
-		<p><?= $topic['description'] ?></p>
-		<p><?= $topic['username'] ?></p>
-		<p>Posted on: <?= $topic['created_at'] ?></p>
-	</div>
+
 	<?php if (intval($this->session->userdata['user_session']['id']) == $topic['user_id']) { ?>
 	<div id="topic-update-container">
-		<h4>Edit Topic:</h4>
-		<form method="post" action="/topics/update/<?= $topic['id']?>">
-			<label for="subject">Topic Subject: </label>
-			<input type="text" name="subject" placeholder="Title...">
-			<label for="category">Category: </label>
-			<select name="category">
-				<option value="General Disscussion">General Discussion</option>
-				<option value="Review">Review</option>
-				<option value="Question">Question</option>
-			</select>
-			<label for="description">Description: </label>
-			<textarea name="description" placeholder="Description of the topic..."></textarea>
-			<input type="submit" value="Edit Topic">
+		<h4><em>Edit Topic:</em></h4>
+		<form method="post" action="/topics/update/<?= $topic['id']?>" class="form-horizontal">
+			<div class="form-group">
+				<label for="subject" class="control-label col-sm-3"><em>Topic Subject: </em></label>
+				<div class="col-sm-8">
+					<input type="text" name="subject" placeholder="Title..." class="form-control" value="<?= $topic['subject'] ?>">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label for="category" class="control-label col-sm-3"><em>Category:</em></label>
+				<div class="col-sm-8">
+					<select name="category" class="form-control">
+						<option value="General Discussion">General Discussion</option>
+						<option value="Review">Review</option>
+						<option value="Question">Question</option>
+					</select>
+				</div>
+			</div>	
+			<div class="form-group">	
+				<label for="description" class="control-label col-sm-3"><em>Description: </em></label>
+				<div class="col-sm-8">
+					<textarea name="description" class="form-control" rows="4"><?= $topic['description'] ?></textarea>
+				</div>
+			</div>
+			<div class="col-sm-offset-3 col-sm-3">
+				<input type="submit" value="Edit Topic" class="btn btn-warning btn-sm">
+			</div>	
 		</form>
-		<p> OR </p>
-		<a href="/topics/delete/<?= $topic['id']?>"><button>Delete Topic</button></a>
+		<a href="/topics/delete/<?= $topic['id']?>"><button type="button" class="btn btn-danger btn-sm">Delete Topic</button></a>
 		<?= $this->session->flashdata("error");  ?>
 	</div>
 	<?php } ?> 
 	
-</div>
-<div class="form-container">
-	<h3>Post a comment:</h3>
-	<?= $this->session->flashdata('errors'); ?>
-	<form method="post" action="/comments/add_comment">
-		<label for="content">Response: </label>
-		<textarea name="content" placeholder="Reply..."></textarea>
-		<input type="hidden" name="topic_id" value="<?= $topic['id'] ?>">
-		<input type="submit" value="Add Comment">
-	</form>
-</div>
-<?= $this->session->flashdata("comment-success"); ?>
-<?=  $this->session->flashdata("comment-error");  ?>
-<div id="comment-container">
-	<?php foreach ($comments as $comment) { ?>
-	<div class="one-comment-container">
-		<p><?= $comment['content'] ?></p>
-		<p>- <?= $comment['username'] ?> at <?= $comment['created_at'] ?>.</p>
-		<?php if (intval($this->session->userdata['user_session']['id']) == $comment['user_id']) { ?>
-		<form method="post" action="/comments/update/<?= $comment['id'] ?>">
-			<label for="content">Response: </label>
-			<textarea name="content" placeholder="Reply..."></textarea>
-			<input type="hidden" name="topic_id" value="<?= $topic['id'] ?>">
-			<input type="submit" value="Edit Comment">
+	<div class="container">
+	<div class="page-header">
+		<h3>Comments</h3>
+	</div>
+		<?php foreach ($comments as $comment) { ?>
+		<div class="list-group">
+			<h4 class="list-group-item-heading"><?= $comment['content'] ?></h4>
+			<p class="list-group-item-text">- <em><?= $comment['username'] ?> <small><?= $comment['created_at'] ?></small>.</em></p>
+		<?php if (intval($this->session->userdata['user_session']['id']) != $comment['user_id']) { ?>
+		</div>
+		<?php } else { ?>
+		<form method="post" action="/comments/update/<?= $comment['id'] ?>" class="form-horizontal">
+			<div class="form-group">
+				<label for="content" class="control-label col-sm-3"><em>Edit Comment: </em></label>
+				<div class="col-sm-8">
+					<textarea name="content" class="form-control" rows="3" value=""><?= $comment['content'] ?></textarea>
+				</div>	
+				<input type="hidden" name="topic_id" value="<?= $topic['id'] ?>">
+			</div>	
+			<div class="col-sm-offset-3 col-sm-3">
+				<button type="submit" class="btn btn-warning btn-sm">Edit Comment</button>
+			</div>	
 		</form>
-		<p> OR </p>
 		<form method="post" action="/comments/delete/<?= $comment['id']?>">
 			<input type="hidden" name="topic_id" value="<?= $topic['id'] ?>">
-			<input type="submit" value="Delete Comment">
+			<button type="submit" class="btn btn-danger btn-sm">Delete Comment</button>
 		</form>
-		<?php } ?>
+	</div>		
+		<?php }
+		} ?>
+
+
+	<div class="page-header">
+		<h3>Post a comment:</h3>
+	</div>	
+		<?= $this->session->flashdata('errors'); ?>
+		<form method="post" action="/comments/add_comment" class="form-horizontal">
+			<div class="form-group">
+				<label for="content" class="control-label col-sm-3">Comment: </label>
+				<div class="col-sm-8">
+					<textarea name="content" class="form-control" placeholder="Reply..." rows="4"></textarea>
+				</div>	
+			</div>	
+			<input type="hidden" name="topic_id" value="<?= $topic['id'] ?>">
+			<div class="col-sm-offset-3 col-sm-3">
+				<button type="submit" class="btn btn-primary btn-sm">Add Comment</button>
+			</div>	
+		</form>
 	</div>
-	<?php } ?>
-</div>
+	<?= $this->session->flashdata("comment-success"); ?>
+	<?=  $this->session->flashdata("comment-error");  ?>
+
 
 <?php $this->load->view('/partials/footer'); ?>

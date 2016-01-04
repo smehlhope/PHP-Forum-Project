@@ -10,25 +10,29 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">The Wandering Reader</a>
+				<a class="navbar-brand" href="/topics">The Wandering Reader</a>
 			</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="/topics">Home</a></li>
+				<?php if (!$this->session->userdata['user_session']['username']) { ?>
 				<li class="dropdown">
-		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-		          <ul class="dropdown-menu">
-		            <li><?php $this->load->view('partials/login'); ?></li>
-		            <li><?php $this->load->view('partials/register'); ?></li>
-		          </ul>
+					 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Get Online!<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Login</a></li>
+						<li><a href="#">Register</a></li>
+					</ul>
         		</li>
+        		<?php } ?>
 				<li><a href="/topics/new">Create New Topic</a></li>
 			</ul>
-
+			<?php if ($this->session->userdata['user_session']['username']) { ?>
 			<ul class="nav navbar-right navbar-nav">
 				<li><p class="navbar-text">Signed in as <strong><?= $this->session->userdata['user_session']['username']; ?></strong></p></li>
-				<li><a href="/logout">Logout</a></li>
+				<li><a href="/logout">Logout <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>
 			</ul>
+			<?php } ?>
+
 		</div><!--/.nav-collapse -->
 		</div><!--/.container-fluid -->
 	</nav>

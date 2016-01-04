@@ -1,28 +1,31 @@
 <?php $this->load->view('partials/header'); ?>
 <?php $this->load->view('partials/nav'); ?>
 
-<div id="forum-container">
+<div class="container">
 
 <?= $this->session->flashdata("topic-delete-success"); ?>
-		
-<table>
+
+<div class="page-header">
+  <h1>Discussions <small>Let Your Mind Wander!</small></h1>
+</div>		
+<table class="table table-striped table-hover">
 	<thead>
-		<tr>
-			<th>Subject</th>
-			<th>Category</th>
-			<th>Description</th>
-			<th>Replies</th>
-			<th>Author</th>
-			<th>Activity</th>
+		<tr class="active">
+			<th><h4>Subject</h4></th>
+			<th><h4>Category</h4></th>
+			<th><h4>Description</h4></th>
+			<th><h4>Replies</h4></th>
+			<th><h4>Author</h4></th>
+			<th><h4>Activity</h4></th>
 		</tr>
 	</thead>
 	<tbody>
 		<?php foreach ($topics as $topic) { ?>	
 		<tr>
-			<td><h4><a href="/topics/<?= $topic['id'] ?>"><?= $topic['subject'] ?></a></h4></td>
-			<td><h4><?= $topic['category'] ?></h4></td>
-			<td><p><?= $topic['description'] ?></p></td>
-			<td><p><?= $topic['comment_count'] ?></p></td>
+			<td><p><a href="/topics/<?= $topic['id'] ?>"><?= $topic['subject'] ?></a></p></td>
+			<td><p><?= $topic['category'] ?></p></td>
+			<td><p><?= substr($topic['description'], 0, 140); ?>...</p></td>
+			<td><p><span class="badge"><?= $topic['comment_count'] ?></span></p></td>
 			<td><p><?= $topic['username'] ?></p></td>
 			<td><p><?= $topic['updated_at'] ?></p></td>
 		</tr>
