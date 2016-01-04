@@ -15,18 +15,18 @@
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="/topics">Home</a></li>
-				<?php if (!$this->session->userdata['user_session']['username']) { ?>
+				<?php if (!$this->session->userdata('user_session')) { ?>
 				<li class="dropdown">
 					 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Get Online!<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="#">Login</a></li>
-						<li><a href="#">Register</a></li>
+						<li><a href="/users/login">Login</a></li>
+						<li><a href="/users/register">Register</a></li>
 					</ul>
         		</li>
         		<?php } ?>
 				<li><a href="/topics/new">Create New Topic</a></li>
 			</ul>
-			<?php if ($this->session->userdata['user_session']['username']) { ?>
+			<?php if ($this->session->userdata('user_session')) { ?>
 			<ul class="nav navbar-right navbar-nav">
 				<li><p class="navbar-text">Signed in as <strong><?= $this->session->userdata['user_session']['username']; ?></strong></p></li>
 				<li><a href="/logout">Logout <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>

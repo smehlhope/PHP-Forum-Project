@@ -25,7 +25,7 @@
 			<td><p><a href="/topics/<?= $topic['id'] ?>"><?= $topic['subject'] ?></a></p></td>
 			<td><p><?= $topic['category'] ?></p></td>
 			<td><p><?= substr($topic['description'], 0, 140); ?>...</p></td>
-			<td><p><span class="badge"><?= $topic['comment_count'] ?></span></p></td>
+			<td><p class="text-center"><span class="badge"><?= $topic['comment_count'] ?></span></p></td>
 			<td><p><?= $topic['username'] ?></p></td>
 			<td><p><?= $topic['updated_at'] ?></p></td>
 		</tr>
