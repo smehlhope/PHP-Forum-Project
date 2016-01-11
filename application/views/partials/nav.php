@@ -24,11 +24,15 @@
 					</ul>
         		</li>
         		<?php } ?>
+        		<?php if ($this->session->userdata('user_session')) { ?>
 				<li><a href="/topics/new">Create New Topic</a></li>
+				<li><a href="/users/profile/<?= $this->session->userdata['user_session']['id']; ?>">User Profile</a></li>
+				<li><p class="navbar-text"><small>New!! <a href="https://en.gravatar.com/">Gravatar</a> is now supported!!</small></p></li>
+				<?php } ?>
 			</ul>
 			<?php if ($this->session->userdata('user_session')) { ?>
 			<ul class="nav navbar-right navbar-nav">
-				<li><p class="navbar-text">Signed in as <strong><?= $this->session->userdata['user_session']['username']; ?></strong></p></li>
+				<li><p class="navbar-text">Signed in as <img src="<?= $this->session->userdata['user_session']['avatar']?>" alt="<?= $this->session->userdata['user_session']['username']; ?>'s avatar" style="width:20px; height:20px;"><strong> <?= $this->session->userdata['user_session']['username']; ?></strong></p></li>
 				<li><a href="/logout">Logout <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>
 			</ul>
 			<?php } ?>

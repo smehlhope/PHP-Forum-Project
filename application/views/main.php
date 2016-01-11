@@ -46,7 +46,7 @@ array (size=6)
       'username' => string 'tester' (length=6)
       'password' => string '5f4dcc3b5aa765d61d8327deb882cf99' (length=32)
       'email' => string 'test@mail.com' (length=13)
-      'avatar' => null
+      'avatar' => "null"
       'access_lvl' => null
       'created_at' => string '2015-12-28 14:13:53' (length=19)
       'updated_at' => null
