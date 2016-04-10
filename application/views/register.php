@@ -2,7 +2,7 @@
 <?php $this->load->view('partials/nav'); ?>
 <div class="container">
 	<h1>Register!</h1>
-	<form action="/users/register_user" method="post" class="form-horizontal">
+	<form action="/users/register" method="post" class="form-horizontal">
 		<div class="form-group">
 			<label for="email" class="control-label col-sm-3">Email Address: </label>
 			<div class="col-sm-8">
@@ -22,9 +22,9 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="password" class="control-label col-sm-3">Confirm Password: </label>
+			<label for="password_conf" class="control-label col-sm-3">Confirm Password: </label>
 			<div class="col-sm-8">
-				<input type="password" name="confirm_password" placeholder="Confirm Password" class="form-control">
+				<input type="password" name="password_conf" placeholder="Confirm Password" class="form-control">
 			</div>
 		</div>
 		<div class="col-sm-offset-3 col-sm-3">

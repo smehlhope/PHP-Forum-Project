@@ -2,11 +2,11 @@
 <?php $this->load->view('partials/nav'); ?>
 
 <div class="container">
-		<h1>Welcome <?=$user_session["username"]?>!</h1>
+		<h1>Welcome <?=$current_user["username"]?>!</h1>
 		<div id="user-information">
-			<h3>Email Address: <?= $user_session["email"]?></h3>
-			<h3>User Joined: <?= $user_session["created_at"]?></h3>
-			<h3>Gravatar Image: <img src="<?= $user_session["avatar"]?>" alt="<?=$user_session["username"]?>'s avatar"></h3>
+			<h3>Email Address: <?= $current_user["email"]?></h3>
+			<h3>User Joined: <?= $current_user["created_at"]?></h3>
+			<h3>Gravatar Image: <img src="<?= $current_user["avatar"]?>" alt="<?=$current_user["username"]?>'s avatar"></h3>
 		</div>
 		
 </div>
@@ -18,12 +18,6 @@
 			<label for="email" class="control-label col-sm-3">Email Address: </label>
 			<div class="col-sm-8">
 				<input type="email" name="email" placeholder="Email" class="form-control">
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="username" class="control-label col-sm-3">Username: </label>
-			<div class="col-sm-8">
-				<input type="text" name="username" placeholder="Username"  class="form-control">
 			</div>
 		</div>
 		<div class="form-group">
@@ -48,6 +42,4 @@
 		} ?>
 </div>	
 
-
-<?php var_dump($user_session); ?>
 <?php $this->load->view('/partials/footer'); ?>

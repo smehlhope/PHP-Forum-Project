@@ -12,27 +12,30 @@
 				</button>
 				<a class="navbar-brand" href="/topics">The Wandering Reader</a>
 			</div>
+
+
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="/topics">Home</a></li>
-				<?php if (!$this->session->userdata('user_session')) { ?>
+				<?php if (empty($current_user)) { ?>
 				<li class="dropdown">
 					 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Get Online!<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="/users/login">Login</a></li>
-						<li><a href="/users/register">Register</a></li>
+						<li><a href="/users/new_user">Register</a></li>
 					</ul>
         		</li>
         		<?php } ?>
-        		<?php if ($this->session->userdata('user_session')) { ?>
+        		<?php if (!empty($current_user)) { ?>
 				<li><a href="/topics/new">Create New Topic</a></li>
-				<li><a href="/users/profile/<?= $this->session->userdata['user_session']['id']; ?>">User Profile</a></li>
+				<li><a href="/users/profile/<?= $current_user['user_id']; ?>">User Profile</a></li>
 				<li><p class="navbar-text"><small>New!! <a href="https://en.gravatar.com/">Gravatar</a> is now supported!!</small></p></li>
 				<?php } ?>
 			</ul>
-			<?php if ($this->session->userdata('user_session')) { ?>
+			
+			<?php if (!empty($current_user)) { ?>
 			<ul class="nav navbar-right navbar-nav">
-				<li><p class="navbar-text">Signed in as <img src="<?= $this->session->userdata['user_session']['avatar']?>" alt="<?= $this->session->userdata['user_session']['username']; ?>'s avatar" style="width:20px; height:20px;"><strong> <?= $this->session->userdata['user_session']['username']; ?></strong></p></li>
+				<li><p class="navbar-text">Signed in as <img src="<?= $current_user['avatar'] ?>" alt="<?= $current_user['username'] ?>'s avatar" style="width:20px; height:20px;"><strong> <?= $current_user['username']; ?></strong></p></li>
 				<li><a href="/logout">Logout <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></a></li>
 			</ul>
 			<?php } ?>

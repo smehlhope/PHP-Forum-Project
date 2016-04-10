@@ -12,7 +12,7 @@
 		</div>	
 	</div>
 
-	<?php if (intval($this->session->userdata['user_session']['id']) == $topic['user_id']) { ?>
+	<?php if (intval($current_user['user_id']) == $topic['user_id']) { ?>
 	<div id="topic-update-container">
 		<h4><em>Edit Topic:</em></h4>
 		<form method="post" action="/topics/update/<?= $topic['id']?>" class="form-horizontal">
@@ -55,7 +55,7 @@
 		<div class="list-group">
 			<h4 class="list-group-item-heading"><?= $comment['content'] ?></h4>
 			<p class="list-group-item-text">- <em><?= $comment['username'] ?> <small><?= $comment['created_at'] ?></small>.</em></p>
-		<?php if (intval($this->session->userdata['user_session']['id']) != $comment['user_id']) { ?>
+		<?php if (intval($current_user['user_id']) != $comment['user_id']) { ?>
 		</div>
 		<?php } else { ?>
 		<form method="post" action="/comments/update/<?= $comment['id'] ?>" class="form-horizontal">

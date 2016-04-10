@@ -39,13 +39,14 @@
 */
 //search bar ------ controller/method
 $route['default_controller'] = "users";
-$route['users/register'] = "users/new_user";
-$route['users/register_user'] = "users/register";
+$route['users/register'] = "register";
+$route['users/register_user'] = "users/register_user";
 $route['users/login'] = "users/login_user";
 $route['users/login_user'] = "users/login";
-$route['users/update'] = "users/update";
+$route['users/update'] = "users/edit";
 $route['users/profile/(:num)'] = "users/profile/$1";
 $route['logout'] = "users/logout";
+$route['topics'] = "users/index";
 $route['topics/new'] = "topics/new_topic";
 $route['topics/add_topic'] = "topics/add_topic";
 $route['topics/update/(:num)'] = "topics/update/$1";

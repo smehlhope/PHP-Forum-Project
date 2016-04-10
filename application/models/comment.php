@@ -2,11 +2,12 @@
 
 class Comment extends CI_Model {
 
-	public $user;
+	public $current_user;
 		
 		function __construct() {
 			parent::__construct();
 		}
+		
 public function add_comment($post) {
 	$post = $this->input->post();
 	$this->form_validation->set_rules("content", "Comment", "trim|required");

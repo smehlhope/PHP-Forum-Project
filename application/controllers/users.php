@@ -2,71 +2,60 @@
 
 class Users extends CI_Controller {
 
-	protected $view_data = array();
-	protected $user_session = NULL;
+	public $current_user;
 
 
 	function __construct() {
 		parent::__construct();
-		$this->view_data['user_session'] =
-		$this->user_session =
-		$this->session->userdata("user_session");
+		$this->load->model("User");
+		$this->current_user = $this->session->userdata("current_user");
+		$this->load->view('partials/nav',array('current_user' => $this->current_user));
 	}
+
+	public function index() {
+		$topics = $this->Topic->retrieve_all();
+		$this->load->view('main', array('current_user' => $this->current_user,
+																		'topics' => $topics
+																		));
+	}
+
+	public function is_login() {
+		if($this->current_user) {
+			return true;
+		} else {
+			return false;
+		}
+	}	
 
 
 	public function login() {
-		$this->load->library("form_validation");
-		$this->form_validation->set_rules("username", "Username", "trim|required");
-		$this->form_validation->set_rules("password", "Password", "trim|min_length[8]|required|md5");
 
-		if($this->form_validation->run() === FALSE) {
-			$this->session->set_flashdata("login_errors", validation_errors());
-			redirect(base_url());
-			//vardump and die
+		$user = $this->input->post(NULL, TRUE);
+		$login_user = $this->User->login_user($user);
+
+		if($login_user["is_login"]) {
+			$this->session->set_flashdata("success_message",$login_user["success_message"]);
+			redirect('topics/main');
 		} else {
-			$this->load->model("User");
-			$user = $this->User->get_user($this->input->post());
-
-			if ($user) {
-				$user['avatar'] = $this->get_gravatar($user['email']);
-				$this->session->set_userdata("user_session", $user);
-				redirect("topics");
-			} else {
-				$this->session->set_flashdata("login_errors", "Invalid email and/or password");
-				redirect(base_url());
-			}
+			$this->session->set_flashdata("error_message",$login_user["error_message"]);
+			redirect(base_url('/users/login'));	 
 		}
 	}
 
 	public function register() {
-		$this->load->library("form_validation");
-		$this->form_validation->set_rules("username", "Username", "trim|required|min_length[3]");
-		$this->form_validation->set_rules("email", "Email", "trim|valid_email|required");
-		$this->form_validation->set_rules("password", "Password", "trim|min_length[8]|required|matches[confirm_password]|md5");
-		$this->form_validation->set_rules("confirm_password", "Confirm Password", "trim|required|md5");
-
-		if($this->form_validation->run() === FALSE) {
-			$this->session->set_flashdata("registration_errors", validation_errors());
-			redirect(base_url());
-		} else {
-			$this->load->model("User");
-			$post = $this->input->post();
-			//var_dump($this->input-post());
-			//die();
-			$insert_user = $this->User->insert_user($post);
-
-			if($insert_user) {
-				$this->session->set_userdata("user_session", $post);
-				redirect("topics/main");
-			} else {
-				$this->session->set_flashdata("registration_errors", "Sorry but your info were not registered please try again.");
-				redirect(base_url());
-			}
-		}
+		$user = $this->input->post(NULL, TRUE); 
+    $register_user = $this->User->create_user_record($user);
+    
+    if($register_user["user_created"]) {
+    	$this->session->set_flashdata("success_message",$register_user["success_message"]);
+    	$this->login_user();
+    } else {
+    	$this->session->set_flashdata("error_message",$register_user["error_message"]); 
+    }
 	}
 
 	public function profile() {
-		$this->load->view("user_profile", $this->view_data);
+		$this->load->view("user_profile", array('current_user' => $this->current_user));
 	}
 
 	public function new_user() {
@@ -79,13 +68,22 @@ class Users extends CI_Controller {
 
 	public function logout() {
 		$this->session->sess_destroy();
+		$this->session->set_flashdata("error_message","Logged Out successfully");
 		redirect("topics");
 	}
 
+	function get_user_with_username($username) {
+    $user_name  = strtolower($username);
+    $user_fetch_query = "SELECT * FROM users WHERE username = ?";
+    return $this->db->query($user_fetch_query,$user_name)->row_array();
+  }
+
 	public function edit($user_id) {
-		$user_id = intval($this->session->userdata['user_session']['id']);
+		$user = $this->User->get_user_with_id($user_id);
+		$this->load->view("profile",array('user' => $user));
+
+		$user_id = intval($user_session['id']);
 		$this->load->library("form_validation");
-		$this->form_validation->set_rules("username", "Username", "trim|required|min_length[3]");
 		$this->form_validation->set_rules("email", "Email", "trim|valid_email|required");
 		$this->form_validation->set_rules("password", "Password", "trim|min_length[8]|required|matches[confirm_password]|md5");
 		$this->form_validation->set_rules("confirm_password", "Confirm Password", "trim|required|md5");
@@ -99,18 +97,5 @@ class Users extends CI_Controller {
 		}
 	}
 
-	public function get_gravatar($email, $s = 40, $d = 'identicon', $r = 'pg', $img = false, $atts = array()) {
-		// $email = $this->session->userdata['user_session']['email'];
-	    $url = 'http://www.gravatar.com/avatar/';
-	    $url .= md5(strtolower(trim($email)));
-	    $url .= "?s=$s&d=$d&r=$r";
-	    if ($img) {
-	        $url = '<img src="' . $url . '"';
-	        foreach ($atts as $key => $val) {
-	            $url .= ' ' . $key . '="' . $val . '"';
-	        	$url .= ' />'; 
-	        }
-		}
-	    return $url;
-	}
+
 }

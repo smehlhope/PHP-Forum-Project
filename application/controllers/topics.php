@@ -1,11 +1,16 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+
 class Topics extends CI_Controller {
 
+public $current_user;
 
 	function __construct() {
 		parent::__construct();
+		$this->load->model('User');
 		$this->load->model('Comment');
+		$this->current_user = $this->session->userdata("current_user");
+		$this->load->view('partials/nav',array('current_user' => $this->current_user));
 	}
 public function index() {
 	$data['topics'] = $this->Topic->retrieve_all();
@@ -22,9 +27,10 @@ public function add_topic() {
 }
 
 public function show($id) {
-	$data['topic'] = $this->Topic->get_one_topic($id);
-	$data['comments'] = $this->Comment->get_comments($id);
-	$this->load->view('topic', $data);
+	$topic = $this->Topic->get_one_topic($id);
+	$comments = $this->Comment->get_comments($id);
+	$this->load->view('topic', array('topic' => $topic,
+																	'comments' => $comments));
 }
 
 public function update($topic_id) {
